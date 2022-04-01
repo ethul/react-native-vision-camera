@@ -258,6 +258,7 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
 
   @SuppressLint("RestrictedApi")
   private fun updateOrientation() {
+    Log.d(TAG, "UpdateOrientation inputRotation = ${inputRotation}, outputRotation = ${outputRotation}")
     preview?.targetRotation = inputRotation
     imageCapture?.targetRotation = outputRotation
     videoCapture?.targetRotation = outputRotation
@@ -383,8 +384,12 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
         }
       }
 
+      Log.d(TAG, "Preview.targetRotation = ${inputRotation}")
+
       val previewBuilder = Preview.Builder()
         .setTargetRotation(inputRotation)
+
+      Log.d(TAG, "ImageCapture.targetRotation = ${outputRotation}")
 
       val imageCaptureBuilder = ImageCapture.Builder()
         .setTargetRotation(outputRotation)

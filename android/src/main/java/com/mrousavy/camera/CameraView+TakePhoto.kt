@@ -79,27 +79,25 @@ suspend fun CameraView.takePhoto(options: ReadableMap): WritableMap = coroutineS
       File.createTempFile("mrousavy", ".jpg", context.cacheDir).apply { deleteOnExit() }
     }
   )
+
   val photo = results.first { it is ImageProxy } as ImageProxy
+  Log.d(CameraView.TAG, "TakePhoto photo rotationDegrees = ${photo.imageInfo.rotationDegrees}")
+
   val file = results.first { it is File } as File
 
+  val map = Arguments.createMap()
   val exif: ExifInterface?
   @Suppress("BlockingMethodInNonBlockingContext")
   withContext(Dispatchers.IO) {
     Log.d(CameraView.TAG, "Saving picture to ${file.absolutePath}...")
     val milliseconds = measureTimeMillis {
       val flipHorizontally = lensFacing == CameraCharacteristics.LENS_FACING_FRONT
-      photo.save(file, flipHorizontally)
+      photo.save(file, flipHorizontally, map)
     }
     Log.i(CameraView.TAG_PERF, "Finished image saving in ${milliseconds}ms")
     // TODO: Read Exif from existing in-memory photo buffer instead of file?
     exif = if (skipMetadata) null else ExifInterface(file)
   }
-
-  val map = Arguments.createMap()
-  map.putString("path", file.absolutePath)
-  map.putInt("width", photo.width)
-  map.putInt("height", photo.height)
-  map.putBoolean("isRawPhoto", photo.isRaw)
 
   val metadata = exif?.buildMetadataMap()
   map.putMap("metadata", metadata)
