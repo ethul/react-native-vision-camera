@@ -22,12 +22,7 @@ extension AVMetadataObject.ObjectType {
       self = .code93
       return
     case "codabar":
-      if #available(iOS 15.4, *) {
-        self = .codabar
-      } else {
-        throw CameraError.codeScanner(.codeTypeNotSupported(codeType: string))
-      }
-      return
+      throw CameraError.codeScanner(.codeTypeNotSupported(codeType: string))
     case "ean-13":
       self = .ean13
       return
@@ -61,12 +56,6 @@ extension AVMetadataObject.ObjectType {
   }
 
   var descriptor: String {
-    if #available(iOS 15.4, *) {
-      if self == .codabar {
-        return "codabar"
-      }
-    }
-
     switch self {
     case .code128:
       return "code-128"

@@ -26,7 +26,7 @@ extension CameraSession: AVCaptureMetadataOutputObjectsDelegate {
     let size = device.activeFormat.videoDimensions
 
     // Map codes to JS values
-    let codes = metadataObjects.map { object in
+      let codes:[Code] = metadataObjects.map { object in
       var value: String?
       var corners: [CGPoint]?
       if let code = object as? AVMetadataMachineReadableCodeObject {

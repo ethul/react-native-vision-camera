@@ -118,7 +118,6 @@ class RecordingSession {
       ReactLogger.log(level: .error, message: "Tried to add Audio Writer twice!")
       return
     }
-
     if let settings = settings {
       ReactLogger.log(level: .info, message: "Initializing Audio AssetWriter with settings: \(settings.description)")
     } else {

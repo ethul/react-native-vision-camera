@@ -20,7 +20,7 @@ extension AVCaptureVideoDataOutput {
     } else {
       settings = recommendedVideoSettingsForAssetWriter(writingTo: options.fileType)
     }
-    guard var settings else {
+    guard var settings = settings else {
       throw CameraError.capture(.createRecorderError(message: "Failed to get video settings!"))
     }
 

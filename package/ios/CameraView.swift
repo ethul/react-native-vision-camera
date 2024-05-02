@@ -193,7 +193,7 @@ public final class CameraView: UIView, CameraSessionDelegate {
       }
 
       // Code Scanner
-      if let codeScannerOptions {
+      if let codeScannerOptions = codeScannerOptions {
         let options = try CodeScannerOptions(fromJsValue: codeScannerOptions)
         config.codeScanner = .enabled(config: CameraConfiguration.CodeScanner(options: options))
       } else {
@@ -328,7 +328,7 @@ public final class CameraView: UIView, CameraSessionDelegate {
     #endif
 
     #if DEBUG
-      if let fpsGraph {
+      if let fpsGraph = fpsGraph {
         DispatchQueue.main.async {
           fpsGraph.onTick(CACurrentMediaTime())
         }

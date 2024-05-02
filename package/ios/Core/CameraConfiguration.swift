@@ -49,7 +49,7 @@ class CameraConfiguration {
   var audio: OutputConfiguration<Audio> = .disabled
 
   init(copyOf other: CameraConfiguration?) {
-    if let other {
+    if let other = other {
       // copy over all values
       cameraId = other.cameraId
       photo = other.photo

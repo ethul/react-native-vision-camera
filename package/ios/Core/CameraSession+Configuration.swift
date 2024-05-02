@@ -195,7 +195,7 @@ extension CameraSession {
 
     // Find matching format (JS Dictionary -> strongly typed Swift class)
     let format = device.formats.first { targetFormat.isEqualTo(format: $0) }
-    guard let format else {
+    guard let format = format else {
       throw CameraError.format(.invalidFormat)
     }
 
@@ -207,7 +207,7 @@ extension CameraSession {
 
   func configurePixelFormat(configuration: CameraConfiguration) throws {
     guard case let .enabled(video) = configuration.video,
-          let videoOutput else {
+          let videoOutput = videoOutput else {
       // Video is not enabled
       return
     }

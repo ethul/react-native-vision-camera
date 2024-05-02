@@ -14,10 +14,6 @@ extension AVCaptureSession {
    Returns the clock that is used by this AVCaptureSession.
    */
   var clock: CMClock {
-    if #available(iOS 15.4, *), let synchronizationClock {
-      return synchronizationClock
-    }
-
     return masterClock ?? CMClockGetHostTimeClock()
   }
 
