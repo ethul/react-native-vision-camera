@@ -136,6 +136,11 @@ class CameraSession: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
           if difference.orientationChanged {
             self.configureOrientation(configuration: config)
           }
+          // 5. Enable multitasking support
+          if self.captureSession.isMultitaskingCameraAccessSupported {
+            // Enable use of the camera in multitasking modes.
+            self.captureSession.isMultitaskingCameraAccessEnabled = true
+          }
         }
 
         guard let device = self.videoDeviceInput?.device else {
