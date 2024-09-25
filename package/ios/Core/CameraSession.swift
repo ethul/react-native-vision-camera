@@ -136,6 +136,13 @@ final class CameraSession: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
         if difference.isSessionConfigurationDirty {
           self.captureSession.beginConfiguration()
 
+          if #available(iOS 16.0, *) {
+            if self.captureSession.isMultitaskingCameraAccessSupported {
+              // Enable use of the camera in multitasking modes.
+              self.captureSession.isMultitaskingCameraAccessEnabled = true
+            }
+          }
+
           // 1. Update input device
           if difference.inputChanged {
             try self.configureDevice(configuration: config)
